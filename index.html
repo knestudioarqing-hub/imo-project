@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" className="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumière | Avant-Garde Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Cinzel"', 'serif'],
+              sans: ['"Manrope"', 'sans-serif'],
+            },
+            colors: {
+              stone: {
+                50: '#fafaf9',
+                100: '#f5f5f4',
+                200: '#e7e5e4',
+                300: '#d6d3d1',
+                400: '#a8a29e',
+                500: '#78716c',
+                600: '#57534e',
+                700: '#44403c',
+                800: '#292524',
+                900: '#1c1917',
+                950: '#0c0a09',
+              },
+            },
+            animation: {
+              'spin-slow': 'spin 12s linear infinite',
+              'fade-in': 'fadeIn 1.5s ease-out forwards',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #0c0a09;
+        color: #e7e5e4;
+        cursor: none;
+      }
+      
+      .bg-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+      }
+
+      .cursor-dot,
+      .cursor-outline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        pointer-events: none;
+        transition: transform 0.1s ease-out;
+      }
+      .cursor-dot {
+        width: 6px;
+        height: 6px;
+        background-color: white;
+      }
+      .cursor-outline {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      
+      body:has(a:hover) .cursor-outline,
+      body:has(button:hover) .cursor-outline {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+
+      .reveal-text {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        animation: reveal 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        transform: translateY(100%);
+      }
+      
+      @keyframes reveal {
+        0% { transform: translateY(100%); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+      
+      .writing-vertical-rl {
+        writing-mode: vertical-rl;
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0c0a09;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #292524;
+        border-radius: 0px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #44403c;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div class="bg-noise"></div>
+    <div id="root"></div>
+    
+    <script>
+      const cursorDot = document.createElement('div');
+      cursorDot.classList.add('cursor-dot');
+      const cursorOutline = document.createElement('div');
+      cursorOutline.classList.add('cursor-outline');
+      document.body.append(cursorDot, cursorOutline);
+
+      window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+        
+        cursorOutline.animate({
+          left: `${posX}px`,
+          top: `${posY}px`
+        }, { duration: 400, fill: "forwards" });
+      });
+    </script>
+  </body>
+</html>
